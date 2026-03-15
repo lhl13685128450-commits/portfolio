@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>AR 交互与用户研究 | 刘惠莉 Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* 详情页专属样式 */
+        .hero-banner { height: 50vh; background: linear-gradient(135deg, #2d3436 0%, #000000 100%); display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-bottom: 60px; }
+        .project-section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
+        .tag { background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 15px; display: inline-block; }
+        
+        /* 展示图片组 */
+        .image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 30px 0; }
+        .image-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+        .display-img { width: 100%; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; }
+        .display-img:hover { transform: scale(1.02); }
+        
+        /* 设计规范样式 */
+        .spec-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-top: 20px; border: 1px solid var(--border-color); }
+        .color-palette { display: flex; gap: 15px; margin-top: 10px; }
+        .color-circle { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #eee; }
+        
+        .research-box { background: #f8f9fa; border-left: 4px solid var(--accent); padding: 25px; margin: 20px 0; border-radius: 0 12px 12px 0; }
+    </style>
+</head>
+<body>
+    <div class="container" style="padding: 30px 0;">
+        <a href="../index.html" style="text-decoration: none; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="arrow-left" size="18"></i> 返回首页
+        </a>
+    </div>
+
+    <header class="hero-banner">
+        <div class="container">
+            <span class="tag" style="background:rgba(255,255,255,0.2)">AR & User Research Collective</span>
+            <h1 style="font-size: 48px; margin-top: 10px;">AR 交互与用户研究专题</h1>
+            <p style="opacity: 0.8; max-width: 700px; margin: 20px auto;">探索增强现实技术如何重塑物理空间的感知——从公共场所的行为约束到个人数字资产的有效利用。</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="project-section">
+            <div style="max-width: 800px;">
+                <span class="tag">Project 01</span>
+                <h2 style="font-size: 32px;">Attention: 禁止标志 AR 增强系统</h2>
+                <p style="margin-top: 20px; line-height: 1.8; color: var(--text-secondary);">
+                    该设计针对“人们在无监督环境下容易忽略禁令标识”的问题，结合实体镜面标识与数字交互。
+                    用户可以在镜中看到自己的违规行为，并通过 AR 效果获取建议，将原本冷冰冰的禁令转化为一种具有社会参与感的交互体验。
+                </p>
+            </div>
+
+            <div class="image-grid">
+                <img src="../assets/ar-sign-main.jpg" class="display-img" alt="镜面标识设计">
+                <img src="../assets/ar-sign-app.jpg" class="display-img" alt="小程序界面展示">
+            </div>
+
+            <div class="research-box">
+                <h4>用户研究与痛点</h4>
+                <p style="font-size: 14px; margin-top: 10px;">调研显示，2000年后国际通用的禁制性标识覆盖率极高，但由于视觉疲劳，人们往往对其产生“视而不见”的心理防御。通过 3ds Max 建模、Arduino 硬件监测与 Vuforia AR 识别，我们构建了一个完整的反馈闭环。</p>
+            </div>
+
+            <div class="spec-card">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 40px;">
+                    <div>
+                        <h5>视觉识别系统</h5>
+                        <p style="font-size: 13px; color: #666; margin-top: 8px;">采用了 Century Gothic 与 Arial 字体以确保信息的权威与清晰。</p>
+                        <div class="color-palette">
+                            <div class="color-circle" style="background:#F2DD1B"></div>
+                            <div class="color-circle" style="background:#EDE4DD"></div>
+                            <div class="color-circle" style="background:#C1DAA8"></div>
+                            <div class="color-circle" style="background:#E8E7F1"></div>
+                        </div>
+                    </div>
+                    <img src="../assets/ar-sign-icons.jpg" style="width: 100%; border-radius: 8px;" alt="图标设计展示">
+                </div>
+            </div>
+        </section>
+
+        <section class="project-section" style="border-bottom: none;">
+            <div style="max-width: 800px;">
+                <span class="tag">Project 02</span>
+                <h2 style="font-size: 32px;">Collection Space: 数字收藏的空间化映射</h2>
+                <p style="margin-top: 20px; line-height: 1.8; color: var(--text-secondary);">
+                    “收藏即读过”是数字时代的通病。本项目通过 AR 技术将碎片化的软件收藏（文字、链接、视频）映射到特定的物理空间或物体上。
+                    通过 Unity 开发的扫描识别系统，让用户在真实空间中重新与自己的数字资产相遇。
+                </p>
+            </div>
+
+            <div class="image-grid three-col">
+                <img src="../assets/col-research.jpg" class="display-img" alt="用户调查问卷数据">
+                <img src="../assets/col-storyboard.jpg" class="display-img" alt="交互故事板">
+                <img src="../assets/col-unity.jpg" class="display-img" alt="Unity 开发界面">
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; margin-top: 40px; align-items: center;">
+                <div class="spec-card">
+                    <h5>核心交互逻辑 (Programming)</h5>
+                    <ul style="font-size: 14px; color: var(--text-secondary); line-height: 2; margin-top: 15px;">
+                        <li><i data-lucide="check-circle" size="14"></i> <b>物体识别：</b>基于 Vuforia 引擎进行特征点捕捉。</li>
+                        <li><i data-lucide="check-circle" size="14"></i> <b>空间映射：</b>将虚拟 UI 层级绑定至物理坐标系。</li>
+                        <li><i data-lucide="check-circle" size="14"></i> <b>地图编辑：</b>用户自定义收藏内容的地理/物体标签。</li>
+                    </ul>
+                </div>
+                <img src="../assets/col-final.jpg" class="display-img" alt="最终成品展示">
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="padding: 100px 0; text-align: center; border-top: 1px solid var(--border-color);">
+        <p style="color: var(--text-secondary);">© Huili Liu | AR & HCI Design Research</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
