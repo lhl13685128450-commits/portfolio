@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 建模优化 | 刘惠莉 作品集</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868b;
+            --accent-color: #0066CC;
+            --card-bg: #f5f5f7;
+            --border-color: #eee;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        .dark-theme {
+            --bg-color: #1D1D1F;
+            --text-primary: #F5F5F7;
+            --text-secondary: #a1a1a6;
+            --accent-color: #0A84FF;
+            --card-bg: #2d2d2f;
+            --border-color: #3d3d3f;
+            --nav-bg: rgba(29, 29, 31, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        nav {
+            height: 60px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo { font-weight: 600; font-size: 18px; }
+        .logo a { text-decoration: none; color: var(--text-primary); }
+        
+        .nav-links { display: flex; align-items: center; gap: 24px; }
+        .nav-links a { text-decoration: none; color: var(--text-primary); font-size: 14px; }
+
+        #theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 5px;
+        }
+
+        /* Hero区 */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .series-tag {
+            font-size: 14px;
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        h1 { font-size: 56px; font-weight: 700; margin-bottom: 16px; letter-spacing: -1.5px; }
+        .subtitle { font-size: 24px; color: var(--text-secondary); margin-bottom: 30px; }
+
+        .tag-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tag {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* 模块间距 */
+        section { margin-bottom: 80px; }
+
+        /* 两列布局 */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .flow-list { list-style: none; margin-top: 20px; }
+        .flow-list li { 
+            margin-bottom: 12px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            color: var(--text-secondary);
+        }
+
+        .data-card-group { display: flex; flex-direction: column; gap: 15px; }
+        .data-card {
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .data-value { font-size: 32px; font-weight: 700; color: var(--accent-color); display: block; }
+        .data-label { font-size: 14px; color: var(--text-secondary); }
+
+        /* 流程与案例卡片 */
+        .step-circle {
+            width: 40px; height: 40px; 
+            background: var(--accent-color); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin: 0 auto 20px;
+            font-weight: 600;
+        }
+
+        .gradient-box {
+            height: 180px; 
+            border-radius: 16px; 
+            margin: 15px 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white;
+            font-size: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* 技术参数表 */
+        table { width: 100%; border-collapse: collapse; margin: 40px 0; }
+        tr { border-bottom: 1px solid var(--border-color); }
+        td { padding: 16px 0; font-size: 15px; }
+        td:last-child { text-align: right; color: var(--text-secondary); }
+
+        /* 底部按钮 */
+        .btn-group { display: flex; gap: 20px; justify-content: center; padding: 40px 0; }
+        .btn {
+            padding: 12px 30px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
+        .btn-blue { background: var(--accent-color); color: white; }
+        .btn-gray { background: var(--card-bg); color: var(--text-primary); }
+
+        /* 底部导航 */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+        }
+        .footer-nav a { color: var(--accent-color); text-decoration: none; font-weight: 500; }
+
+        @media (max-width: 768px) {
+            .overview-grid, .grid-3 { grid-template-columns: 1fr !important; }
+            h1 { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">
+                <a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回项目展示</a>
+                <button id="theme-toggle">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display:none;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <span class="series-tag">AI-Driven Morphogenesis · 02</span>
+            <h1>3D 建模优化</h1>
+            <p class="subtitle">从 AI 生成概念到可打印模型的完整链路</p>
+            <div class="tag-group">
+                <span class="tag">TripoSR</span>
+                <span class="tag">Blender</span>
+                <span class="tag">3D 打印</span>
+                <span class="tag">模型优化</span>
+            </div>
+        </section>
+
+        <section class="overview-grid">
+            <div>
+                <h3 style="margin-bottom: 20px;">工作流程</h3>
+                <ul class="flow-list">
+                    <li><i data-lucide="zap" size="16"></i> AI 生成概念图</li>
+                    <li><i data-lucide="box" size="16"></i> TripoSR 快速图生 3D</li>
+                    <li><i data-lucide="scissors" size="16"></i> Blender 修模与减面优化</li>
+                    <li><i data-lucide="printer" size="16"></i> 3D 打印结构与支撑准备</li>
+                </ul>
+                <h3 style="margin-top: 30px; margin-bottom: 20px;">核心能力</h3>
+                <p style="color: var(--text-secondary);">快速建模 · 减面优化 · 结构加固 · 支撑生成</p>
+            </div>
+            <div class="data-card-group">
+                <div class="data-card">
+                    <span class="data-value">30s</span>
+                    <span class="data-label">TripoSR 生成基础模型</span>
+                </div>
+                <div class="data-card">
+                    <span class="data-value">60%</span>
+                    <span class="data-label">面数优化比例</span>
+                </div>
+                <div class="data-card">
+                    <span class="data-value">1.2mm</span>
+                    <span class="data-label">设定最小壁厚</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                <div style="text-align: center;">
+                    <div class="step-circle">1</div>
+                    <h4>TripoSR 图生 3D</h4>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #2b4f4b, #3f7a74);">
+                        2D 概念图 → 基础 3D 模型
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px;">30秒生成 · 自动拓扑</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="step-circle">2</div>
+                    <h4>Blender 修模优化</h4>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #3a1c1c, #5e2e2e);">
+                        减面 · 加固 · 结构优化
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px;">面数减少 60% · 壁厚 1.2mm</p>
+                </div>
+                <div style="text-align: center;">
+                    <div class="step-circle">3</div>
+                    <h4>3D 打印准备</h4>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #2d4059, #4e6b8f);">
+                        支撑生成 · 切片设置
+                    </div>
+                    <p style="color: var(--text-secondary); font-size: 14px;">树状支撑 · 层高 0.2mm</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 style="font-size: 24px; font-weight: 500; margin-bottom: 30px;">🤖 机器人案例：从概念到实物</h3>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                <div>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #1a2e3a, #2d4a5e); height: 200px;">AI 概念图</div>
+                    <p style="text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-secondary);">原始概念</p>
+                </div>
+                <div>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #2d3e4a, #3a5e6e); height: 200px;">TripoSR 输出</div>
+                    <p style="text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-secondary);">基础模型 · 面数 2.5万</p>
+                </div>
+                <div>
+                    <div class="gradient-box" style="background: linear-gradient(135deg, #3a2e4a, #4e3e6e); height: 200px;">Blender 优化后</div>
+                    <p style="text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-secondary);">面数 1万 · 壁厚 1.2mm</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: var(--card-bg); padding: 40px; border-radius: 32px;">
+            <h3 style="margin-bottom: 30px; display: flex; align-items: center; gap: 10px;">
+                <i data-lucide="settings"></i> 关键优化操作
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px;">
+                <div>
+                    <h4 style="margin-bottom: 15px;">减面优化 (Decimate)</h4>
+                    <div style="background: var(--bg-color); padding: 24px; border-radius: 16px;">
+                        <p style="margin-bottom: 8px;">原始面数：25,000</p>
+                        <p style="margin-bottom: 8px;">优化后面数：10,000</p>
+                        <p style="color: var(--accent-color); font-weight: 600;">减少 60% · 保留关键视觉特征</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 15px;">结构加固 (Solidify)</h4>
+                    <div style="background: var(--bg-color); padding: 24px; border-radius: 16px;">
+                        <p style="margin-bottom: 8px;">设定壁厚：1.2mm</p>
+                        <p style="margin-bottom: 8px;">支撑方案：树状支撑 (Slim Tree)</p>
+                        <p style="color: var(--accent-color); font-weight: 600;">通过流体模拟验证结构强度</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 style="margin-bottom: 10px;">技术规格</h3>
+            <table>
+                <tr>
+                    <td>建模工具链</td>
+                    <td>TripoSR / Blender / Meshy</td>
+                </tr>
+                <tr>
+                    <td>切片/打印控制</td>
+                    <td>Cura / Bambu Studio</td>
+                </tr>
+                <tr>
+                    <td>打印参数设置</td>
+                    <td>层高 0.2mm · 填充 15% (Grid)</td>
+                </tr>
+                <tr>
+                    <td>物理材料</td>
+                    <td>PLA (Bambu White) / 光敏树脂</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <span class="tag">TripoSR</span>
+                <span class="tag">Blender</span>
+                <span class="tag">Meshy</span>
+                <span class="tag">Cura</span>
+                <span class="tag">Bambu Studio</span>
+            </div>
+        </section>
+
+        <div class="btn-group">
+            <a href="#" class="btn btn-blue">📷 查看模型图集</a>
+            <a href="#" class="btn btn-gray">📄 下载模型文件</a>
+        </div>
+
+        <footer class="footer-nav">
+            <a href="ai-concepts.html">← AI 概念生成</a>
+            <a href="ai-posters.html">视觉品牌设计 →</a>
+        </footer>
+    </main>
+
+    <script>
+        // 初始化图标
+        lucide.createIcons();
+
+        // 暗色模式切换
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            const isDark = body.classList.contains('dark-theme');
+            sunIcon.style.display = isDark ? 'none' : 'block';
+            moonIcon.style.display = isDark ? 'block' : 'none';
+            
+            // 保存偏好
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // 加载保存的偏好
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-theme');
+            sunIcon.style.display = 'none';
+            moonIcon.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
