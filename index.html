@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>刘惠莉 | Robotics & HCI Researcher</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* 核心样式保持不变 */
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            overflow: hidden;
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover { transform: translateY(-5px); }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .icon-box {
+            width: 64px;
+            height: 64px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="container nav-content">
+            <div class="logo">刘惠莉<span style="color:var(--accent)">.</span></div>
+            <div class="nav-links">
+                <a href="#projects">项目展示</a>
+                <a href="#methodology">研究方法</a>
+                <a href="#capabilities">核心能力</a>
+                <button id="theme-toggle" style="background:none; border:none; cursor:pointer; color:inherit; display:flex;">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display:none"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero-section reveal" style="display: flex; align-items: center; justify-content: space-between; height: 100vh; gap: 60px;">
+            <div style="flex: 1.2;">
+                <p style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px; margin-bottom: 12px;">HCI & ROBOTICS RESEARCHER</p>
+                <h1 style="font-size: 64px; font-weight: 700; letter-spacing: -3px; line-height: 1.1;">刘惠莉<br><span style="font-weight: 300; font-size: 28px; letter-spacing: 2px; color: var(--text-secondary);">HUILI LIU</span></h1>
+                <p style="font-size: 20px; color: var(--text-primary); margin: 24px 0 32px; font-weight: 400;">机器人行为算法设计师 / 人机交互（HCI）研究者</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-secondary); font-size: 14px;">
+                        <i data-lucide="graduation-cap" size="18"></i> 伦敦艺术大学 创意机器人硕士（MSC Creative Robotics）· 一等荣誉
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-secondary); font-size: 14px;">
+                        <i data-lucide="award" size="18"></i> 南京艺术学院 数字媒体艺术学士（BA Digital Media Art）
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); max-width: 520px; font-size: 15px; line-height: 1.8; margin-bottom: 32px;">
+                    研究方向聚焦于机器人行为决策算法与多模态感知交互。具备从算法设计到硬件实现的完整项目经验，擅长强化学习、计算机视觉、传感器融合与实时系统优化。数字媒体背景赋予我独特的人机交互视角与视觉表达能力。
+                </p>
+
+                <div style="display: flex; gap: 24px; align-items: center; margin-top: 20px;">
+                    <div class="contact-item"><i data-lucide="phone" size="18" color="var(--accent)"></i> 13685128450</div>
+                    <div class="contact-item"><i data-lucide="message-square" size="18" color="var(--accent)"></i> LHLLLi512</div>
+                    <div class="contact-item"><i data-lucide="mail" size="18" color="var(--accent)"></i> 13685128450@163.com</div>
+                </div>
+            </div>
+            
+            <div style="flex: 0.8; display: flex; justify-content: flex-end;">
+                <div style="position: relative; width: 420px; height: 500px; border-radius: 24px; overflow: hidden; border: 1px solid var(--border-color); background: var(--card-bg); box-shadow: 0 20px 50px rgba(0,0,0,0.06);">
+                    <img src="assets/profile.jpg" alt="Huili Liu" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div style="position: absolute; bottom: 20px; right: 20px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); padding: 8px 16px; border-radius: 12px; font-size: 11px; font-weight: 700; color: var(--accent); border: 1px solid var(--border-color);">✨ CORE RESEARCHER</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="reveal" style="padding: 120px 0;">
+            <div style="margin-bottom: 60px;">
+                <span style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px;">01 / BEHAVIOR SYSTEMS</span>
+                <h2 style="font-size: 32px; font-weight: 300; margin-top: 10px;">让机器学会决策与适应</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;">
+                <a href="projects1/illusion.html" class="project-card">
+                    <div style="height: 280px; overflow: hidden;"><img src="assets/illusion-cover.png" alt="The Illusion of Control"></div>
+                    <div style="padding: 32px;">
+                        <h3 style="font-size: 20px;">The Illusion of Control</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">通过分裂存在探索人机控制关系中的权力结构冲突。</p>
+                    </div>
+                </a>
+                <a href="projects/gait.html" class="project-card">
+                    <div style="height: 280px; overflow: hidden;"><img src="assets/gait-cover.png" alt="Dynamic Gait Control"></div>
+                    <div style="padding: 32px;">
+                        <h3 style="font-size: 20px;">机器人动态步态控制</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">基于 PPO 算法，让四足机器人在动态地面实现自适应稳定行走。</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="reveal" style="padding: 120px 0;">
+            <div style="margin-bottom: 60px;">
+                <span style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px;">02 / INTERACTION & PERCEPTION</span>
+                <h2 style="font-size: 32px; font-weight: 300; margin-top: 10px;">让机器感知人类意图</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;">
+                <a href="projects/eeg-maze.html" class="project-card">
+                    <div style="height: 280px; overflow: hidden;"><img src="assets/neuromaze-cover.jpg" alt="EEG Maze Game"></div>
+                    <div style="padding: 32px;">
+                        <h3 style="font-size: 20px;">脑电控制沉浸式迷宫</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">利用脑电波注意力驱动交互。</p>
+                    </div>
+                </a>
+                <a href="projectsrelay/distorted-relay.html" class="project-card">
+                    <div style="height: 280px; overflow: hidden;"><img src="assets/relay-cover.jpg" alt="Distorted Relay"></div>
+                    <div style="padding: 32px;">
+                        <h3 style="font-size: 20px;">Distorted Relay | 交互装置</h3>
+                        <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">具象化展现 AI 语义在翻译中崩塌的物理过程。</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="reveal" style="padding: 120px 0;">
+            <div style="margin-bottom: 60px;">
+                <span style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px;">03 / AI VISION & ART</span>
+                <h2 style="font-size: 32px; font-weight: 300; margin-top: 10px;">让机器看见并创造</h2>
+            </div>
+            <a href="projectstower/tower-bridge.html" class="project-card">
+                <div style="height: 320px; overflow: hidden;"><img src="assets/tower-bridge-cover.jpg" alt="Tower Bridge NST"></div>
+                <div style="padding: 32px;">
+                    <h3 style="font-size: 20px;">伦敦塔桥状态识别与艺术迁移</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 10px;">将地标建筑的实时监控状态转化为印象派动态视觉表达。</p>
+                </div>
+            </a>
+        </section>
+
+        <section class="reveal" style="padding: 120px 0;">
+            <div style="margin-bottom: 60px;">
+                <span style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px;">04 / AIGC EXPLORATIONS</span>
+                <h2 style="font-size: 32px; font-weight: 300; margin-top: 10px;">AI 驱动形态生成体系</h2>
+            </div>
+            <a href="projectsai/ai-3d.html" class="project-card">
+                <div style="width: 100%; height: 480px; overflow: hidden; background: var(--card-bg); border-radius: 24px 24px 0 0;">
+                    <img src="assets/ai-poster.png" alt="AIGC Concepts" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+                </div>
+                <div style="padding: 32px; background: var(--card-bg); border-radius: 0 0 24px 24px; border: 1px solid var(--border-color); border-top: none;">
+                    <h3 style="font-size: 20px; margin: 0;">AIGC 跨维度生成管线</h3>
+                    <p style="color: var(--text-secondary); font-size: 14px; margin-top: 12px; line-height: 1.6;">
+                        整合 Nano Banana 2概念设计、TripoSR 3D 重建与品牌视觉自动化，探索生成式 AI 对工业设计流程的重塑。
+                    </p>
+                </div>
+            </a>
+        </section>
+
+        <section class="reveal" style="padding: 120px 0;">
+            <div style="margin-bottom: 60px;">
+                <span style="color: var(--accent); font-weight: 600; font-size: 14px; letter-spacing: 2px;">05 / OTHER EXPLORATIONS</span>
+                <h2 style="font-size: 32px; font-weight: 300; margin-top: 10px;">多维跨界探索</h2>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+                <a href="projectsar/ar-signs.html" class="project-card">
+                    <div style="height: 200px; overflow: hidden;"><img src="assets/ar-sign.png" alt="AR System"></div>
+                    <div style="padding: 24px;">
+                        <strong style="font-size: 16px; display: block; margin-bottom: 8px;">AR 系统</strong>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin: 0;">基于图像识别的增强现实交互系统与用户体验研究。</p>
+                    </div>
+                </a>
+                <a href="projects/uiux-design.html" class="project-card">
+                    <div style="height: 200px; overflow: hidden;"><img src="assets/uiux-cover.png" alt="UIUX"></div>
+                    <div style="padding: 24px;">
+                        <strong style="font-size: 16px; display: block; margin-bottom: 8px;">UI/UX 体验设计</strong>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin: 0;">虚拟鱼缸交互系统构建</p>
+                    </div>
+                </a>
+                <a href="projectsgame/rpg-game.html" class="project-card">
+                    <div style="height: 200px; overflow: hidden;"><img src="assets/rpg-cover.png" alt="RPG"></div>
+                    <div style="padding: 24px;">
+                        <strong style="font-size: 16px; display: block; margin-bottom: 8px;">Finding Friend RPG</strong>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin: 0;">独立开发的一款解谜向 RPG 游戏，探索叙事与关卡设计的平衡。</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section id="methodology" class="reveal" style="padding: 120px 0; text-align: center;">
+            <h2 style="font-size: 32px; font-weight: 300; margin-bottom: 80px;">研发流程方法论</h2>
+            <div style="display: flex; justify-content: space-between; position: relative;">
+                <div style="position: absolute; top: 32px; left: 0; width: 100%; height: 1px; background: var(--border-color); z-index: 0;"></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="search"></i></div><p style="font-weight: 600; font-size: 13px;">问题定义</p></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="git-branch"></i></div><p style="font-weight: 600; font-size: 13px;">行为建模</p></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="pencil-ruler"></i></div><p style="font-weight: 600; font-size: 13px;">原型构建</p></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="sliders"></i></div><p style="font-weight: 600; font-size: 13px;">参数调试</p></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="users"></i></div><p style="font-weight: 600; font-size: 13px;">用户实验</p></div>
+                <div style="position: relative; z-index: 1; width: 15%;"><div class="icon-box" style="margin: 0 auto 20px;"><i data-lucide="check-circle"></i></div><p style="font-weight: 600; font-size: 13px;">系统优化</p></div>
+            </div>
+        </section>
+
+        <section id="capabilities" class="reveal" style="padding: 120px 0;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+                <div style="background: var(--card-bg); padding: 48px 32px; border-radius: 28px;">
+                    <i data-lucide="circuit-board" color="var(--accent)" style="margin-bottom: 24px;"></i>
+                    <h4 style="margin-bottom: 20px; font-size: 18px;">软硬件连接</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                        <li>Arduino / STM32</li><li>串口 / UDP 通信</li><li>传感器集成</li><li>低延迟系统优化</li>
+                    </ul>
+                </div>
+                <div style="background: var(--card-bg); padding: 48px 32px; border-radius: 28px;">
+                    <i data-lucide="activity" color="var(--accent)" style="margin-bottom: 24px;"></i>
+                    <h4 style="margin-bottom: 20px; font-size: 18px;">行为建模</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                        <li>非线性决策设计</li><li>强化学习 PPO / SAC</li><li>奖励函数工程</li><li>HRI 定量实验</li>
+                    </ul>
+                </div>
+                <div style="background: var(--card-bg); padding: 48px 32px; border-radius: 28px;">
+                    <i data-lucide="brain" color="var(--accent)" style="margin-bottom: 24px;"></i>
+                    <h4 style="margin-bottom: 20px; font-size: 18px;">AI 系统</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                        <li>CNN 视觉检测</li><li>神经风格迁移优化</li><li>脑电信号降噪</li><li>用户情感计算</li>
+                    </ul>
+                </div>
+                <div style="background: var(--card-bg); padding: 48px 32px; border-radius: 28px;">
+                    <i data-lucide="palette" color="var(--accent)" style="margin-bottom: 24px;"></i>
+                    <h4 style="margin-bottom: 20px; font-size: 18px;">设计表现</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--text-secondary); display: flex; flex-direction: column; gap: 8px;">
+                        <li>Figma 高保真原型</li><li>Blender 3D 建模</li><li>AE 动态演示</li><li>3D 打印快速原型</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact" style="padding: 120px 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-size: 48px; font-weight: 300; margin-bottom: 40px; letter-spacing: -1.5px;">构建逻辑与感性的交界点。</h2>
+            <p style="font-size: 18px; font-weight: 500;">Tel / Wechat: 13685128450</p>
+            <div style="margin-top: 40px; display:flex; justify-content:center; gap:40px; font-size: 14px;">
+                <a href="work/HuiliLiu_Portfolio_compressed.pdf" target="_blank" style="color:var(--accent); text-decoration:none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="file-text" size="18"></i> 作品集 PDF (PORTFOLIO)
+                </a>
+                <a href="work/刘惠莉的简历.pdf" target="_blank" style="color:var(--accent); text-decoration:none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="user" size="18"></i> 个人简历 PDF (RESUME)
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
