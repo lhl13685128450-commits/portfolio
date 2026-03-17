@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AR 交互与用户研究 | 刘惠莉 Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --card-bg: #f5f5f7;
+            --border-color: #d2d2d7;
+            --button-bg: #1d1d1f;
+            --button-text: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1d1d1f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --accent-color: #0071e3;
+            --card-bg: #2c2c2e;
+            --border-color: #424245;
+            --button-bg: #f5f5f7;
+            --button-text: #1d1d1f;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            font-family: -apple-system, "SF Pro SC", sans-serif;
+            transition: var(--transition);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        /* 导航栏样式 */
+        nav { 
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(var(--bg-color), 0.8); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        .nav-content { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { text-decoration: none; color: var(--text-primary); font-size: 18px; font-weight: 600; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+        #theme-toggle { background: none; border: none; cursor: pointer; color: var(--text-primary); padding: 8px; }
+
+        /* Hero Banner */
+        .hero-banner { 
+            padding: 140px 0 60px; 
+            background: linear-gradient(180deg, var(--card-bg) 0%, var(--bg-color) 100%);
+            text-align: center; 
+        }
+        .hero-banner h1 { font-size: 42px; font-weight: 700; letter-spacing: -1px; margin: 15px 0; }
+        .hero-banner p { color: var(--text-secondary); font-size: 17px; max-width: 600px; margin: 0 auto; }
+
+        /* 项目区块 */
+        .project-section { padding: 80px 0; border-bottom: 1px solid var(--border-color); }
+        .tag { color: var(--accent-color); font-weight: 600; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+        
+        /* 图片展示区域控制 */
+        .image-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 24px; 
+            margin: 32px 0; 
+        }
+        .image-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+        
+        /* 包装器控制图片大小与比例 */
+        .img-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            aspect-ratio: 16 / 10; /* 统一比例 */
+            max-width: 440px; /* 限制宽度防止在大屏显得太突兀 */
+        }
+
+        .three-col .img-wrapper {
+            aspect-ratio: 4 / 3;
+            max-width: 300px;
+        }
+        
+        .display-img { 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition); 
+        }
+        
+        .img-wrapper:hover .display-img { transform: scale(1.05); }
+        
+        /* 规范与研究卡片 */
+        .spec-card { background: var(--card-bg); border-radius: 20px; padding: 30px; margin-top: 25px; border: 1px solid var(--border-color); }
+        .research-box { background: var(--card-bg); border-left: 3px solid var(--accent-color); padding: 25px; margin: 25px 0; border-radius: 0 12px 12px 0; }
+        
+        /* 按钮样式 */
+        .project-footer { margin-top: 40px; }
+        .btn { 
+            background: var(--button-bg); color: var(--button-text); 
+            padding: 12px 28px; border-radius: 25px; 
+            text-decoration: none; font-size: 14px; font-weight: 500;
+            display: inline-flex; align-items: center; gap: 8px; transition: var(--transition);
+        }
+        .btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+        @media (max-width: 768px) {
+            .hero-banner h1 { font-size: 32px; }
+            .image-grid, .image-grid.three-col { grid-template-columns: 1fr; justify-items: center; }
+            .img-wrapper { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo"><a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a></div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回作品集</a>
+                <button id="theme-toggle">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display:none;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-banner">
+        <div class="container">
+            <span class="tag">AR & User Research Collective</span>
+            <h1>AR 交互与用户研究专题</h1>
+            <p>探索增强现实技术如何重塑物理空间的感知与数字资产的交互逻辑。</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="project-section">
+            <div style="max-width: 800px;">
+                <span class="tag">Project 01</span>
+                <h2 style="font-size: 32px; margin-bottom: 20px;">Collection Space: 数字映射</h2>
+                <p style="color: var(--text-secondary); font-size: 16px;">
+                    通过 AR 技术将碎片化的软件收藏映射到特定的物理空间，让数字资产在真实环境中重现价值，重构个人数字档案馆的访问逻辑。
+                </p>
+            </div>
+
+            <div class="image-grid three-col">
+                <div class="img-wrapper"><img src="col-research.png" class="display-img" alt="Data"></div>
+                <div class="img-wrapper"><img src="col-storyboard.png" class="display-img" alt="Storyboard"></div>
+                <div class="img-wrapper"><img src="col-unity.png" class="display-img" alt="Unity"></div>
+            </div>
+
+            <div class="spec-card">
+                <h5 style="margin-bottom: 15px; font-size: 16px;">核心交互逻辑</h5>
+                <p style="font-size: 14px; color: var(--text-secondary);">基于 Vuforia 引擎进行特征点捕捉，将虚拟 UI 层级绑定至物理坐标系，支持用户通过空间锚点自定义数字内容的地理标签。</p>
+            </div>
+
+            <div class="project-footer">
+                <a href="ProfileAR_compressed.pdf" target="_blank" class="btn"><i data-lucide="external-link" size="16"></i> 查看详细作品集 (Collection Space)</a>
+            </div>
+        </section>
+
+        <section class="project-section" style="border-bottom: none;">
+            <div style="max-width: 800px;">
+                <span class="tag">Project 02</span>
+                <h2 style="font-size: 32px; margin-bottom: 20px;">Attention: 禁止标志 AR 增强系统</h2>
+                <p style="color: var(--text-secondary); font-size: 16px;">
+                    结合实体镜面标识与数字交互，将原本被忽视的禁令转化为一种具有视觉冲击力和社会参与感的交互体验。
+                </p>
+            </div>
+
+            <div class="image-grid">
+                <div class="img-wrapper"><img src="ar-sign-main.png" class="display-img" alt="Mirror Sign"></div>
+                <div class="img-wrapper"><img src="ar-sign-app.png" class="display-img" alt="App Interface"></div>
+            </div>
+
+            <div class="research-box">
+                <h4 style="margin-bottom: 10px; font-size: 16px;">研究与痛点</h4>
+                <p style="font-size: 14px; color: var(--text-secondary);">通过 3ds Max 建模、Arduino 硬件监测与 Vuforia 图像识别构建反馈闭环，旨在解决城市环境中视觉疲劳导致的公共安全标识失效问题。</p>
+            </div>
+
+            <div class="project-footer">
+                <a href="Profile_禁止_compressed (1).pdf"target="_blank" class="btn"><i data-lucide="external-link" size="16"></i> 查看详细作品集 (Attention)</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="padding: 80px 0; text-align: center; color: var(--text-secondary); font-size: 14px;">
+        © 2025 Huili Liu · AR & HCI Design Research
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                sunIcon.style.display = 'block'; moonIcon.style.display = 'none';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none'; moonIcon.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
