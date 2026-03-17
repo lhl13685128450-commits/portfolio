@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finding Friend RPG | 项目详情</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --card-bg: #f5f5f7;
+            --accent-color: #5856D6; /* RPG项目使用紫色系以体现神秘感 */
+            --border-color: #d2d2d7;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1d1d1f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --card-bg: #2c2c2e;
+            --border-color: #424245;
+        }
+
+        body { background: var(--bg-color); color: var(--text-primary); font-family: -apple-system, sans-serif; margin: 0; transition: var(--transition); line-height: 1.5; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+        
+        /* --- 导航栏 --- */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(var(--bg-color), 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .nav-content { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { text-decoration: none; color: var(--text-primary); font-size: 18px; font-weight: 600; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+        #theme-toggle { background: none; border: none; cursor: pointer; color: var(--text-primary); padding: 8px; }
+
+        /* --- Hero 区域 --- */
+        .hero { padding: 140px 0 40px; text-align: center; }
+        .hero h1 { font-size: 48px; margin-bottom: 12px; letter-spacing: -1px; }
+        .hero p { color: var(--text-secondary); font-size: 20px; max-width: 700px; margin: 0 auto; }
+
+        /* --- 视频播放器 --- */
+        .video-hero-container { 
+            width: 100%; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            background: #000; 
+            border: 1px solid var(--border-color); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+            margin: 40px 0 80px; 
+        }
+        video { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+
+        /* --- 内容板块 --- */
+        .img-container { width: 100%; border-radius: 12px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border-color); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .section-title { font-size: 24px; font-weight: 600; margin-bottom: 30px; margin-top: 100px; display: flex; align-items: center; gap: 10px; }
+        
+        .flow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        .flow-card { background: var(--card-bg); padding: 32px; border-radius: 20px; border: 1px solid var(--border-color); }
+        .flow-card h4 { margin: 0 0 12px 0; color: var(--accent-color); font-size: 18px; }
+        .flow-card p { margin: 0; font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+        .scene-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; margin-bottom: 60px; }
+        .scene-desc h3 { font-size: 20px; margin-bottom: 16px; }
+        .scene-desc p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+
+        /* --- 数据条 --- */
+        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 100px 0; }
+        .stat-item { background: var(--card-bg); padding: 30px; border-radius: 20px; text-align: center; border: 1px solid var(--border-color); }
+        .stat-item b { font-size: 28px; color: var(--accent-color); display: block; margin-bottom: 4px; }
+        .stat-item p { margin: 0; font-size: 13px; color: var(--text-secondary); }
+
+        @media (max-width: 768px) {
+            .flow-grid, .scene-layout, .stats-bar { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo"><a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a></div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回项目展示</a>
+                <button id="theme-toggle">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display:none;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="hero">
+            <h1>Finding Friend RPG</h1>
+            <p>基于心理依赖与情感寄托的独立解谜游戏探索</p>
+            <div style="margin-top:24px; font-size:14px; color:var(--accent-color); font-weight:600; letter-spacing: 1px;">UNITY 3D · C# · NARRATIVE DESIGN · PSYCHOLOGY</div>
+        </header>
+
+        <div class="video-hero-container">
+            <video controls autoplay muted loop poster="../assets/rpg-video-poster.jpg">
+                <source src="../videos/demo.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+
+        <section class="detail-section">
+            <div class="section-title">
+                <i data-lucide="book-open" size="24" color="var(--accent-color)"></i>
+                01 · 核心叙事 <small style="font-weight:300; margin-left:10px; opacity:0.5;">Narrative Concept</small>
+            </div>
+            <p style="font-size: 16px; color: var(--text-primary); max-width: 800px; line-height: 1.8;">
+                根据 GDD 设计文档，本项目探讨了“情感寄托物”在个体成长中的双面性。游戏通过一个三层结构的“娃娃屋”隐喻人类的意识深处。玩家需在失衡的记忆碎片中寻找真相，解开主角对儿时玩偶过度依赖的心理结节。
+            </p>
+            
+            <div class="flow-grid">
+                <div class="flow-card">
+                    <h4>潜意识空间</h4>
+                    <p>利用建筑空间的垂直分布映射心理状态，从明亮的表层意识到底层的阴暗创伤。</p>
+                </div>
+                <div class="flow-card">
+                    <h4>情感交互</h4>
+                    <p>核心机制不仅是解谜，更是通过与环境物体的交互触发主角的内心独白与情感回馈。</p>
+                </div>
+                <div class="flow-card">
+                    <h4>冲突具象化</h4>
+                    <p>将心理压力转化为“影子”障碍，玩家必须在规避恐惧与寻求真相之间寻找平衡。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section">
+            <div class="section-title">
+                <i data-lucide="layers" size="24" color="var(--accent-color)"></i>
+                02 · 空间设计 <small style="font-weight:300; margin-left:10px; opacity:0.5;">Space & Level Design</small>
+            </div>
+
+            <div class="scene-layout">
+                <div class="scene-desc">
+                    <h3>Top Floor: 理想化的记忆</h3>
+                    <p>顶层采用高饱和度、柔和的光影设计，象征着主角试图维持的完美表象。这里包含大量的交互细节，用于建立最初的叙事悬念。</p>
+                </div>
+                <div class="img-container" style="aspect-ratio: 16/10;">
+                    <img src="rpg-top.png" alt="Top Floor Level Design">
+                </div>
+            </div>
+
+            <div class="scene-layout" style="direction: rtl;">
+                <div class="scene-desc" style="direction: ltr;">
+                    <h3>Bottom Floor: 被压抑的真相</h3>
+                    <p>底层空间窄闭且色调阴冷。作为游戏的高潮部分，玩家在这里需要面对被具象化的心理矛盾，完成最终的情感解脱。</p>
+                </div>
+                <div class="img-container" style="aspect-ratio: 16/10;">
+                    <img src="rpg-bottom.png" alt="Bottom Floor Level Design">
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="stat-item"><b>3 Stages</b><p>垂直叙事空间</p></div>
+            <div class="stat-item"><b>15+ Items</b><p>情感交互物品</p></div>
+            <div class="stat-item"><b>Unity</b><p>引擎全流程开发</p></div>
+            <div class="stat-item"><b>2D/3D</b><p>跨维度视觉风格</p></div>
+        </section>
+
+        <div style="display:flex; gap:16px; justify-content:center; margin-bottom: 120px;">
+            <a href="1_GDD.pdf"target="_blank" style="padding:16px 40px; background:var(--accent-color); color:white; border-radius:35px; text-decoration:none; font-weight:600; box-shadow: 0 10px 20px rgba(88, 86, 214, 0.3);">下载 GDD 设计文档</a>
+        </div>
+    </main>
+
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 主题切换逻辑
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.onclick = () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+                localStorage.setItem('theme', 'dark');
+            }
+        };
+
+        // 页面加载时恢复主题设置
+        window.onload = () => {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>
