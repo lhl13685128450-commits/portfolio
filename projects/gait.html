@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器人动态步态控制系统 | Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --card-bg: #f5f5f7;
+            --border-color: #d2d2d7;
+            --button-bg: #1d1d1f;
+            --button-text: #ffffff;
+            --section-padding: 80px;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1d1d1f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --accent-color: #0071e3;
+            --card-bg: #2c2c2e;
+            --border-color: #424245;
+            --button-bg: #f5f5f7;
+            --button-text: #1d1d1f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "SF Pro Display", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-color); color: var(--text-primary); transition: var(--transition); line-height: 1.6; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        /* 导航栏 */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(var(--bg-color), 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .nav-content { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { text-decoration: none; color: var(--text-primary); font-size: 18px; font-weight: 600; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; transition: color 0.3s; }
+        #theme-toggle { background: none; border: none; cursor: pointer; color: inherit; display: flex; align-items: center; }
+
+        /* Hero 区 */
+        .hero { padding-top: 140px; padding-bottom: 60px; text-align: center; }
+        .hero h1 { font-size: 44px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .hero p { font-size: 20px; color: var(--text-secondary); max-width: 700px; margin: 0 auto 32px; }
+        .tag { font-size: 12px; background: var(--card-bg); padding: 6px 16px; border-radius: 20px; color: var(--text-secondary); }
+
+        /* 视频容器 - 直接嵌入 */
+        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 24px; overflow: hidden; margin: 40px 0; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid var(--border-color); }
+        .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
+
+        section { padding: var(--section-padding) 0; }
+        .section-title { font-size: 28px; margin-bottom: 32px; font-weight: 600; text-align: center; }
+
+        /* 重新设计的技术流程图 */
+        .workflow-container { background: var(--card-bg); padding: 40px; border-radius: 32px; margin-bottom: 60px; }
+        .workflow-steps { display: flex; justify-content: space-between; align-items: center; position: relative; }
+        .step { flex: 1; text-align: center; position: relative; z-index: 1; }
+        .step-icon { width: 50px; height: 50px; background: var(--bg-color); border: 2px solid var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--accent-color); }
+        .step h4 { font-size: 15px; margin-bottom: 8px; }
+        .step p { font-size: 12px; color: var(--text-secondary); padding: 0 10px; }
+        .connector { height: 2px; background: var(--border-color); flex-grow: 1; margin-bottom: 50px; }
+
+        /* 代码展示区 */
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 30px; border-radius: 20px; font-family: 'Fira Code', 'Courier New', monospace; font-size: 14px; overflow-x: auto; line-height: 1.5; border: 1px solid #333; }
+        .code-comment { color: #6a9955; }
+        .code-keyword { color: #569cd6; }
+        .code-func { color: #dcdcaa; }
+
+        /* 数据卡片 */
+        .grid-2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+        .data-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .data-card { background: var(--card-bg); padding: 24px; border-radius: 16px; text-align: center; border: 1px solid var(--border-color); }
+        .data-value { font-size: 32px; font-weight: 700; color: var(--accent-color); display: block; }
+        .data-label { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
+
+        .btn { padding: 14px 32px; border-radius: 30px; text-decoration: none; font-size: 15px; font-weight: 500; transition: all 0.3s; background: var(--button-bg); color: var(--button-text); display: inline-flex; align-items: center; gap: 8px; }
+
+        @media (max-width: 768px) {
+            .workflow-steps { flex-direction: column; gap: 40px; }
+            .connector { display: none; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo"><a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a></div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回项目展示</a>
+                <button id="theme-toggle"><i data-lucide="sun" id="sun-icon"></i><i data-lucide="moon" id="moon-icon" style="display:none;"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero container">
+        <span class="tag">强化学习 · 机器人控制 · 2025</span>
+        <h1>机器人动态步态控制系统</h1>
+        <p>基于PPO算法的四足机器人主动避险策略研究，实现在地震及船体摇晃环境下的稳定行走。</p>
+        
+        <div class="video-wrapper">
+            <video controls autoplay muted loop playsinline>
+                <source src="../videos/robot_gait_demo.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="overview">
+            <div class="grid-2">
+                <div class="overview-text">
+                    <h2 style="font-size: 24px; margin-bottom: 20px;">研究概述</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                        传统控制在复杂地形下难以应对高频震动。本研究在PyBullet中创新性地引入了“传感器驱动地面”，通过IMU数据实时反馈，训练机器人自发学会了<strong>“探步策略 (Probe Step)”</strong>。
+                    </p>
+                    <p style="color: var(--text-secondary);">
+                        实验证明，在±17°的剧烈倾斜及5Hz的震动频率下，PPO策略的存活率较传统TD3算法提升了<strong>42%</strong>。
+                    </p>
+                </div>
+                <div class="data-cards">
+                    <div class="data-card"><span class="data-value">550</span><span class="data-label">PPO 平均回合奖励</span></div>
+                    <div class="data-card"><span class="data-value">±17°</span><span class="data-label">最大抗倾斜动态角度</span></div>
+                    <div class="data-card"><span class="data-value">5Hz</span><span class="data-label">环境震动适应上限</span></div>
+                    <div class="data-card"><span class="data-value">100%</span><span class="data-label">探步行为触发率</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="workflow">
+            <h2 class="section-title">系统架构与控制流</h2>
+            <div class="workflow-container">
+                <div class="workflow-steps">
+                    <div class="step">
+                        <div class="step-icon"><i data-lucide="activity"></i></div>
+                        <h4>环境感知</h4>
+                        <p>IMU传感器获取机身Pose与加速度，通过指数平滑降低高频噪声。</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <div class="step-icon"><i data-lucide="brain"></i></div>
+                        <h4>策略决策</h4>
+                        <p>PPO策略网络根据多模态观测值输出舵机目标关节角度。</p>
+                    </div>
+                    <div class="connector"></div>
+                    <div class="step">
+                        <div class="step-icon"><i data-lucide="shield-check"></i></div>
+                        <h4>安全评估</h4>
+                        <p>三阶段奖励函数通过重心偏移度量，强制机器人优先维持平衡。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="code">
+            <h2 class="section-title">核心逻辑实现</h2>
+            <p style="text-align:center; color:var(--text-secondary); margin-bottom:30px;">多模态自适应奖励函数：根据环境倾斜度动态切换平衡优先级。</p>
+            <div class="code-block">
+                <span class="code-comment"># 定义奖励函数，平衡生存与速度</span><br>
+                <span class="code-keyword">def</span> <span class="code-func">compute_reward</span>(self, tilt, velocity):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;danger_level = abs(tilt) / self.MAX_TILT<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> danger_level > <span class="code-keyword">0.7</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 危险模式：极大权重分配给“重心保持”</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> self.stabilization_reward * <span class="code-keyword">2.5</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">elif</span> danger_level > <span class="code-keyword">0.3</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 谨慎模式：通过小幅度踏步探测地面</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> (velocity * <span class="code-keyword">0.5</span>) + (self.stabilization_reward * <span class="code-keyword">1.5</span>)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">else</span>:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment"># 正常模式：优化前进效率</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> velocity * <span class="code-keyword">1.0</span>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 60px 0 120px;">
+            <a href="code3_final_report.pdf" class="btn"><i data-lucide="file-text"></i> 阅读完整研究论文 (PDF)</a>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                sunIcon.style.display = 'block'; moonIcon.style.display = 'none';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none'; moonIcon.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
