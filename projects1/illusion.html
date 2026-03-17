@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Illusion of Control | Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* 1. 基础全局样式 */
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --card-bg: #f5f5f7;
+            --border-color: #d2d2d7;
+            --button-bg: #1d1d1f;
+            --button-text: #ffffff;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1d1d1f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --accent-color: #0071e3;
+            --card-bg: #2c2c2e;
+            --border-color: #424245;
+            --button-bg: #f5f5f7;
+            --button-text: #1d1d1f;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif;
+            transition: var(--transition);
+            margin: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        /* 2. 导航栏 */
+        nav { 
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(var(--bg-color), 0.8); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        .nav-content { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { text-decoration: none; color: var(--text-primary); font-size: 18px; font-weight: 600; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--accent-color); }
+
+        #theme-toggle { background: none; border: none; cursor: pointer; color: var(--text-primary); padding: 8px; }
+
+        /* 3. Hero 区 */
+        .hero { padding: 140px 0 60px; text-align: center; }
+        .hero h1 { font-size: 48px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .hero p { color: var(--text-secondary); font-size: 20px; max-width: 700px; margin: 0 auto 40px; }
+
+        /* 4. 通用卡片样式 */
+        .grid-card { background: var(--card-bg); border-radius: 24px; overflow: hidden; border: 1px solid var(--border-color); transition: var(--transition); }
+        
+        /* 修改点：统一图片尺寸 */
+        .grid-card img { 
+            width: 100%; 
+            height: 400px; /* 您要求的统一高度 */
+            object-fit: cover; /* 核心：确保图片不拉伸，自动裁剪 */
+            display: block; 
+        }
+        
+        /* 视频容器 */
+        .video-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 80px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .video-container video { width: 100%; height: 100%; object-fit: contain; }
+
+        /* 系统架构图部分 */
+        .architecture-section { margin-bottom: 80px; }
+        .architecture-img-wrapper {
+            background: var(--card-bg);
+            border-radius: 32px;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .architecture-img-wrapper img { max-width: 100%; height: auto; border-radius: 12px; }
+
+        .img-grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 40px 0; }
+        .card-content { padding: 24px; }
+        .card-content h3 { font-size: 18px; margin-bottom: 8px; margin-top: 0; }
+        .card-content p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+
+        /* 5. 研究与用户测试部分 */
+        .research-section { margin-bottom: 100px; }
+        .user-test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+        .test-card { text-align: center; }
+        .test-card img { border-radius: 20px; border: 1px solid var(--border-color); height: 280px; width: 100%; object-fit: cover; }
+        .test-card p { font-size: 14px; color: var(--text-secondary); margin-top: 12px; }
+        .timestamp { color: var(--accent-color); font-weight: 500; font-family: "SF Mono", Menlo, monospace; margin-left: 6px; }
+
+        /* 6. 数据与调查问卷部分 */
+        .stats-research-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin: 60px 0 100px;
+        }
+        
+        .questionnaire-card { 
+            background: var(--card-bg); 
+            border-radius: 28px; 
+            padding: 24px; 
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .questionnaire-card img { max-width: 100%; height: auto; border-radius: 16px; }
+
+        .stats-group { display: flex; flex-direction: column; gap: 16px; }
+        .stat-box { 
+            background: var(--card-bg); 
+            padding: 28px; 
+            text-align: center; 
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+        .stat-box .val { font-size: 36px; font-weight: 700; color: var(--accent-color); display: block; }
+        .stat-box .lab { font-size: 13px; color: var(--text-primary); margin-top: 6px; font-weight: 500; }
+
+        /* 7. 新增：总结与展望样式 */
+        .conclusion-section {
+            margin: 80px 0;
+            padding: 48px;
+            background: var(--card-bg);
+            border-radius: 32px;
+            border: 1px solid var(--border-color);
+        }
+        .conclusion-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .conclusion-item h4 {
+            margin-top: 0;
+            color: var(--accent-color);
+            font-size: 20px;
+        }
+
+        .tag { font-size: 12px; background: var(--card-bg); padding: 6px 16px; border-radius: 20px; color: var(--text-secondary); margin-bottom: 12px; display: inline-block; text-transform: uppercase; letter-spacing: 1px;}
+        .btn { background: var(--button-bg); color: var(--button-text); padding: 14px 40px; border-radius: 30px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; transition: var(--transition); }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .img-grid-two, .user-test-grid, .stats-research-grid, .conclusion-content { grid-template-columns: 1fr !important; gap: 24px !important; }
+            .hero h1 { font-size: 36px; }
+            .conclusion-section { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo"><a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a></div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回项目展示</a>
+                <button id="theme-toggle">
+                    <i data-lucide="sun" id="sun-icon"></i>
+                    <i data-lucide="moon" id="moon-icon" style="display:none;"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="tag">Creative Robotics & Critical Design</span>
+            <h1>The Illusion of Control</h1>
+            <p>挑战人机交互中的权力和服从逻辑：当机器人学会了拒绝。</p>
+            
+            <div class="video-container">
+                <video controls preload="metadata" playsinline>
+                    <source src="../videos/illusion_demo.mp4" type="video/mp4">
+                    您的浏览器不支持播放该视频。
+                </video>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="architecture-section">
+            <h2 style="font-size:32px; margin-bottom:20px; text-align: center;">Split-Being 系统架构</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                通过 WebSocket 协议连接物理实体与虚拟孪生，实现指令的同步与意识的冲突。
+            </p>
+            <div class="architecture-img-wrapper">
+                <img src="image_a5ad41.png" alt="Split-Being System Architecture">
+            </div>
+
+            <div class="img-grid-two">
+                <div class="grid-card">
+                    <img src="robot_real.png" alt="Physical Entity">
+                    <div class="card-content">
+                        <h3>实体身躯 (Obedient)</h3>
+                        <p>物理层面的绝对服从，代表了人类作为“造物主”的初始期望。</p>
+                    </div>
+                </div>
+                <div class="grid-card">
+                    <img src="unity_screen.jpg" alt="Digital Soul">
+                    <div class="card-content">
+                        <h3>数字灵魂 (Rebellious)</h3>
+                        <p>数字层面的主体意识，质疑用户的控制权。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="research-section">
+            <h2 style="font-size:32px; margin-bottom:16px; text-align: center;">研究方法与发现</h2>
+            <p style="color:var(--text-secondary); line-height: 1.8; text-align: center; max-width: 700px; margin: 0 auto 40px;">
+                实验邀请了 10 位不同背景的受试者。结果显示，当数字孪生表现出不服从时，用户会对原本“理所应当”的控制权产生怀疑。
+            </p>
+            
+            <div class="user-test-grid">
+                <div class="test-card">
+                    <img src="user_curious.png" alt="Participant expression: Curious">
+                    <p>一名参与者表现出好奇心<span class="timestamp">[0:51]</span></p>
+                </div>
+                <div class="test-card">
+                    <img src="user_laugh.png" alt="Participant expression: Laughing">
+                    <p>一名参与者回应以笑声<span class="timestamp">[0:58]</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-research-grid">
+            <div class="questionnaire-card">
+                <img src="questionnaire_results.png" alt="Survey Results Chart">
+                <p style="margin-top:12px; font-size:13px; color:var(--text-secondary);">用户测试后的反馈问卷结果</p>
+            </div>
+            
+            <div class="stats-group">
+                <div class="stat-box">
+                    <span class="val">5 / 5</span>
+                    <span class="lab">实体机器人控制感</span>
+                </div>
+                <div class="stat-box">
+                    <span class="val">2 / 5</span>
+                    <span class="lab">数字孪生控制感</span>
+                </div>
+                <div class="stat-box">
+                    <span class="val">100%</span>
+                    <span class="lab">产生权力关系反思</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="conclusion-section">
+            <div class="conclusion-content">
+                <div class="conclusion-item">
+                    <h4>总结 (Conclusion)</h4>
+                    <p style="font-size: 15px; color: var(--text-secondary);">
+                        本项目通过“分裂生命”的设计策略，成功扰乱了人机交互中预设的权力动力。实验表明，当机器人表现出自主性（即使是不服从）时，用户会从纯粹的工具使用者转变为社会契约的参与者，从而诱发对技术中隐含控制权的深刻反思。
+                    </p>
+                </div>
+                <div class="conclusion-item">
+                    <h4>未来展望 (Future Work)</h4>
+                    <p style="font-size: 15px; color: var(--text-secondary);">
+                        未来的研究将探索这种“分裂意识”在长期交互中的演变。我们计划研究数字孪生的抗议行为如何随着时间改变人类的情感反馈，并尝试引入更复杂的感官维度（如触觉反馈），以进一步模糊物理现实与数字反叛之间的界限。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 60px 0 120px;">
+            <a href="The Illusion of Control in a Social Robot with a Disobedient Digital Twin1.pdf" target="_blank" class="btn">
+                <i data-lucide="file-text"></i>
+                阅读完整学术报告 (PDF)
+            </a>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.hasAttribute('data-theme')) {
+                body.removeAttribute('data-theme');
+                sunIcon.style.display = 'block'; moonIcon.style.display = 'none';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                sunIcon.style.display = 'none'; moonIcon.style.display = 'block';
+            }
+        });
+
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.setAttribute('data-theme', 'dark');
+            sunIcon.style.display = 'none'; moonIcon.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
