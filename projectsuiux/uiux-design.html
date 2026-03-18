@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Fish Tank | Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #E57454; /* 鱼缸项目标志性的橙色 */
+            --card-bg: #f5f5f7;
+            --border-color: #d2d2d7;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1d1d1f;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --card-bg: #2c2c2e;
+            --border-color: #424245;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--text-primary); 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            margin: 0;
+            transition: var(--transition);
+        }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        /* 导航栏 */
+        nav { 
+            position: fixed; top: 0; width: 100%; 
+            background: rgba(255, 255, 255, 0.8); 
+            backdrop-filter: blur(20px); 
+            z-index: 1000; 
+            border-bottom: 1px solid var(--border-color); 
+        }
+        .nav-content { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+        .logo a { text-decoration: none; color: var(--text-primary); font-size: 18px; font-weight: 600; }
+        .nav-links { display: flex; align-items: center; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; }
+
+        /* Hero 区 */
+        .hero { padding: 140px 0 60px; text-align: center; }
+        .tag { font-size: 12px; background: var(--card-bg); padding: 6px 16px; border-radius: 20px; color: var(--text-secondary); margin-bottom: 12px; display: inline-block; font-weight: 600; }
+        .hero h1 { font-size: 48px; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 16px; }
+        .hero p { color: var(--text-secondary); font-size: 20px; max-width: 800px; margin: 0 auto 40px; }
+
+        /* 视频/图片大图容器 */
+        .video-container {
+            width: 100%;
+            height: 560px; /* 固定高度确保视觉冲击力 */
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 80px;
+        }
+        .video-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* 系统架构展示 */
+        .architecture-section { margin-bottom: 100px; }
+        .architecture-img-wrapper {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .architecture-img-wrapper img { max-width: 100%; height: auto; border-radius: 12px; }
+
+        /* 双栏图片卡片 - 强制图片高度一致 */
+        .img-grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 80px; }
+        .grid-card { 
+            background: var(--card-bg); 
+            border-radius: 24px; 
+            overflow: hidden; 
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .grid-card:hover { transform: translateY(-5px); }
+        .grid-card img { 
+            width: 100%; 
+            height: 300px; /* 强制两张图高度一致 */
+            object-fit: cover; 
+            border-bottom: 1px solid var(--border-color);
+        }
+        .card-content { padding: 24px; }
+        .card-content h3 { margin: 0 0 10px 0; font-size: 20px; }
+        .card-content p { margin: 0; color: var(--text-secondary); font-size: 14px; line-height: 1.6; }
+
+        /* 数据展示区 */
+        .stats-research-grid { 
+            display: grid; 
+            grid-template-columns: 1.2fr 1fr; 
+            gap: 24px; 
+            margin-bottom: 100px; 
+            align-items: center;
+        }
+        .questionnaire-card img { width: 100%; border-radius: 20px; border: 1px solid var(--border-color); }
+        
+        .stats-group { display: flex; flex-direction: column; gap: 20px; }
+        .stat-box { 
+            padding: 24px; 
+            background: var(--bg-color); 
+            border: 1px solid var(--border-color); 
+            border-radius: 20px; 
+        }
+        .stat-box .val { font-size: 32px; font-weight: 700; color: var(--accent-color); display: block; }
+        .stat-box .lab { font-size: 14px; color: var(--text-secondary); }
+
+        /* 总结区 */
+        .conclusion-section { 
+            background: var(--card-bg); 
+            padding: 60px; 
+            border-radius: 32px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 40px; 
+            margin-bottom: 100px;
+        }
+        .conclusion-item h4 { font-size: 22px; margin-top: 0; }
+        .conclusion-item p { color: var(--text-secondary); line-height: 1.8; }
+
+        /* 按钮样式 */
+        .btn {
+            background: var(--text-primary);
+            color: #ffffff;
+            padding: 16px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        .btn:hover { background: var(--accent-color); transform: scale(1.02); }
+
+        @media (max-width: 768px) {
+            .img-grid-two, .stats-research-grid, .conclusion-section { grid-template-columns: 1fr; }
+            .video-container { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-content">
+            <div class="logo"><a href="../index.html">刘惠莉<span style="color:var(--accent-color)">.</span></a></div>
+            <div class="nav-links">
+                <a href="../index.html#projects">返回项目展示</a>
+                <button id="theme-toggle" style="background:none; border:none; cursor:pointer; color:var(--text-primary);">
+                    <i data-lucide="sun"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <span class="tag">UX/UI Design | Product Design</span>
+            <h1>Virtual Fish Tank</h1>
+            <p>通过可视化空间拥挤程度，激发用户整理行为，将杂乱压力转化为生态共情。</p>
+            
+            <div class="video-container">
+                <img src="fish_tank_hero.png" alt="主展示图">
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="architecture-section">
+            <h2 style="text-align: center; font-size: 32px;">逻辑映射系统</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 40px;">将物理空间的实时占用数据映射为虚拟鱼缸的透明度与鱼群行为</p>
+            
+            <div class="architecture-img-wrapper">
+                <img src="system_logic.png" alt="逻辑架构图">
+            </div>
+
+            <div class="img-grid-two">
+                <div class="grid-card">
+                    <img src="clean_state.png" alt="整洁状态">
+                    <div class="card-content">
+                        <h3>清澈状态 (Optimal)</h3>
+                        <p>物理空间整洁，水质清澈，鱼群活跃。正向反馈增强用户的掌控感与愉悦感。</p>
+                    </div>
+                </div>
+                <div class="grid-card">
+                    <img src="messy_state.png" alt="混乱状态">
+                    <div class="card-content">
+                        <h3>危机状态 (Crisis)</h3>
+                        <p>空间拥挤导致水质浑浊、鱼群下沉。通过负面情感反馈促使用户产生整理动机。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-research-grid">
+            <div class="questionnaire-card">
+                <img src="questionnaire_fish.png" alt="调研数据">
+                <p style="margin-top:15px; font-size:13px; color:var(--text-secondary); text-align: center;">基于 157 份样本的情感共情强度分析</p>
+            </div>
+            
+            <div class="stats-group">
+                <div class="stat-box">
+                    <span class="val">84%</span>
+                    <span class="lab">用户承认在面对杂乱时会产生逃避心理</span>
+                </div>
+                <div class="stat-box">
+                    <span class="val">4 / 5</span>
+                    <span class="lab">实验组对虚拟生态死亡表现出明显共情</span>
+                </div>
+                <div class="stat-box">
+                    <span class="val">40%</span>
+                    <span class="lab">预期整理频率提升 (对比闹钟提醒)</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="conclusion-section">
+            <div class="conclusion-item">
+                <h4>设计总结</h4>
+                <p>本项目成功将“断舍离”理念具象化。通过非侵入式的视觉反馈，我们发现用户更愿意为了“拯救”虚拟生命而行动，而非单纯为了整理而整理。</p>
+            </div>
+            <div class="conclusion-item">
+                <h4>技术展望</h4>
+                <p>未来计划引入更精准的 CV 识别技术，区分物品的类别（如衣物、书籍），并在鱼缸中对应生成不同的生物多样性，实现更细腻的情感交互。</p>
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 0 0 120px;">
+            <a href="Profile鱼缸_compressed (1).pdf" target="_blank" class="btn">
+                <i data-lucide="file-text"></i>
+                查看详细设计作品集 (PDF)
+            </a>
+            <p style="margin-top: 24px; color: var(--text-secondary); font-size: 14px;">© 2024 刘惠莉 Huili Liu</p>
+        </footer>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        // 极简主题切换
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.hasAttribute('data-theme') 
+                ? document.body.removeAttribute('data-theme') 
+                : document.body.setAttribute('data-theme', 'dark');
+        });
+    </script>
+</body>
+</html>
